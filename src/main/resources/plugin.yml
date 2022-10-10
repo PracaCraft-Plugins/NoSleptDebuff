@@ -1,0 +1,5 @@
+name: NoSleepDebuff
+version: '${project.version}'
+main: me.valdoveste.nosleepdebuff.NoSleepDebuff
+api-version: 1.19
+authors: [ Valdoveste ]
