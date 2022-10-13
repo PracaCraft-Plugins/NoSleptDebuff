@@ -5,8 +5,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.Objects;
 
 public class SleepTicksTask extends BukkitRunnable {
-    NoSleepDebuff plugin;
-    public SleepTicksTask(NoSleepDebuff plugin) {
+    NoSleptDebuff plugin;
+    public SleepTicksTask(NoSleptDebuff plugin) {
         this.plugin = plugin;
     }
 
@@ -14,15 +14,16 @@ public class SleepTicksTask extends BukkitRunnable {
 
     @Override
     public void run() {
-        if(sleepTicks != 5 && NoSleepDebuff.onBedPlayersCount > 0) {
+        if(!(sleepTicks == 5) && NoSleptDebuff.onBedPlayersCount > 0) {
             sleepTicks++;
-        }else if(sleepTicks == 5){
-            this.cancel();
-            sleepTicks = 0;
-            Objects.requireNonNull(plugin.getServer().getWorld("world")).setTime(0);
-        } else {
+        }else{
             this.cancel();
             sleepTicks = 0;
         }
+
+        if(sleepTicks == 5)
+            this.cancel();
+            sleepTicks = 0;
+            Objects.requireNonNull(plugin.getServer().getWorld("world")).setTime(0);
     }
 }

@@ -11,23 +11,33 @@ import static org.bukkit.Bukkit.getServer;
 public class WorldTimeTask extends BukkitRunnable {
     public static final long[] worldTime = new long[1];
 
-    NoSleepDebuff plugin;
-    public WorldTimeTask(NoSleepDebuff plugin) {
+    NoSleptDebuff plugin;
+
+    public WorldTimeTask(NoSleptDebuff plugin) {
         this.plugin = plugin;
     }
 
     public void isDay(long worldTime) {
-        if(worldTime >= 0 && worldTime <= 500){
+        if (worldTime >= 0 && worldTime <= 500) {
             Player[] onlinePlayers = getServer().getOnlinePlayers().toArray(new Player[0]);
             for (Player onlinePlayer : onlinePlayers) plugin.isPlayerSlept(onlinePlayer);
-        }else{
-            if(NoSleepDebuff.sleptPlayers.size() > 0) NoSleepDebuff.sleptPlayers.removeAll(Collections.unmodifiableList(NoSleepDebuff.sleptPlayers));
+        } else {
+            if (NoSleptDebuff.sleptPlayers.size() > 0)
+                NoSleptDebuff.sleptPlayers.removeAll(Collections.unmodifiableList(NoSleptDebuff.sleptPlayers));
         }
     }
 
     @Override
     public void run() {
-        worldTime[0] = Objects.requireNonNull(plugin.getServer().getWorld("world")).getTime();
-        isDay(worldTime[0]);
+        try {
+            worldTime[0] = Objects.requireNonNull(plugin.getServer().getWorld("world")).getTime();
+            isDay(worldTime[0]);
+        } catch (Exception e) {
+            System.out.println("An exception error has occurred while trying to get world: "
+                    + Objects.requireNonNull(Objects.requireNonNull(plugin.getServer().getWorld("world")).getName())
+                    +  "world time. "
+                    + " Exception Error --> "
+                    + e);
+        }
     }
 }
