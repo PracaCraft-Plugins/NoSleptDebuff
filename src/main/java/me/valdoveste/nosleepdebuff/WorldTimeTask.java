@@ -33,9 +33,8 @@ public class WorldTimeTask extends BukkitRunnable {
             worldTime[0] = Objects.requireNonNull(plugin.getServer().getWorld("world")).getTime();
             isDay(worldTime[0]);
         } catch (Exception e) {
-            System.out.println("An exception error has occurred while trying to get world: "
-                    + Objects.requireNonNull(Objects.requireNonNull(plugin.getServer().getWorld("world")).getName())
-                    +  "world time. "
+            System.out.println("An exception error has occurred while trying to get world: world"
+                    +  " world time. "
                     + " Exception Error --> "
                     + e);
         }
