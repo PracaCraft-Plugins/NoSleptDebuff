@@ -3,3 +3,12 @@ version: '${project.version}'
 main: me.valdoveste.nosleepdebuff.NoSleepDebuff
 api-version: 1.19
 authors: [ Valdoveste ]
+commands:
+  onsd:
+    description: Turns on the plugin.
+    usage: /sd on
+    aliases: sd on
+  offsd:
+    description: Turns off the plugin.
+    usage: /sd off
+    aliases: sd off
