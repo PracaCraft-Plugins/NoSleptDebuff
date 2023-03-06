@@ -1,7 +1,0 @@
-effects:
-  effect_first:
-    - BLINDNESS
-  effect_second:
-    - SLOW
-  effect_duration:
-    - 75

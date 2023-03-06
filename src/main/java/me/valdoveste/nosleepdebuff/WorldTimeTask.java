@@ -1,9 +1,9 @@
 package me.valdoveste.nosleepdebuff;
 
+import java.util.Objects;
+
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-
-import java.util.Objects;
 
 import static org.bukkit.Bukkit.getServer;
 
@@ -31,8 +31,12 @@ public class WorldTimeTask extends BukkitRunnable {
 
     private void isDay(long worldTime) {
         if (worldTime >= 0 && worldTime <= 350) {
-            Player[] onlinePlayers = getServer().getOnlinePlayers().toArray(new Player[0]);
-            for (Player onlinePlayer : onlinePlayers) plugin.isPlayerSlept(onlinePlayer);
+            if(!NoSleepDebuff.getWasDrowsinessAppliedToday()) {
+                Player[] onlinePlayers = getServer().getOnlinePlayers().toArray(new Player[0]);
+                for (Player onlinePlayer : onlinePlayers) plugin.isPlayerSlept(onlinePlayer);
+            }else{
+                NoSleepDebuff.setWasDrowsinessAppliedToday(false);
+            }
         }
     }
 }
