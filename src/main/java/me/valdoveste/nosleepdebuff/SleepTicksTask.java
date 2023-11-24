@@ -5,25 +5,31 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.Objects;
 
 public class SleepTicksTask extends BukkitRunnable {
-    NoSleptDebuff plugin;
-    public SleepTicksTask(NoSleptDebuff plugin) {
+    NoSleepDebuff plugin;
+    public static int sleepTicks = 0;
+    public SleepTicksTask(NoSleepDebuff plugin) {
         this.plugin = plugin;
     }
 
-    public static int sleepTicks = 0;
-
     @Override
     public void run() {
-        if(!(sleepTicks == 5) && NoSleptDebuff.onBedPlayersCount > 0) {
-            sleepTicks++;
-        }else{
-            this.cancel();
-            sleepTicks = 0;
+        switch (sleepTicks) {
+            case 5:
+                if (NoSleepDebuff.onBedPlayersCount >= 1) {
+                    sleepTicks++;
+                } else {
+                    cancelAndReset();
+                    Objects.requireNonNull(plugin.getServer().getWorld("world")).setTime(0);
+                }
+                break;
+            default:
+                cancelAndReset();
+                break;
         }
+    }
 
-        if(sleepTicks == 5)
-            this.cancel();
-            sleepTicks = 0;
-            Objects.requireNonNull(plugin.getServer().getWorld("world")).setTime(0);
+    private void cancelAndReset() {
+        this.cancel();
+        sleepTicks = 0;
     }
 }
