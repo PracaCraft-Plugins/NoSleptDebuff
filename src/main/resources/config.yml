@@ -1,0 +1,14 @@
+PerDay_debuff_nonSleep:
+  Effects:
+    effect_typeI: BLINDNESS
+    effect_typeII: SLOW
+    effect_duration: 75
+    effect_duration_isAccumulative: true
+    effect_level: 1
+
+PerDays_debuff_nonSleep:
+  days_threshold: 3
+  Effect:
+    effect_typeI: HUNGER
+    effect_duration: 120
+    effect_level: 2
